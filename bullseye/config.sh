@@ -13,8 +13,9 @@ lb config \
   --bootloaders "syslinux" \
   --zsync false \
   --debootstrap-options "--variant=minbase --no-merged-usr" \
-  -d stretch \
-  --iso-volume "stretch" \
+  -d bullseye \
+  --iso-volume "bullseye" \
   --archive-areas "main contrib non-free" \
   --firmware-binary false \
-  --firmware-chroot false
+  --firmware-chroot false \
+  --security false
