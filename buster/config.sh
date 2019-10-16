@@ -12,7 +12,7 @@ lb config \
   --bootappend-live-failsafe "boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal net.ifnames=0" \
   --bootloaders "syslinux" \
   --zsync false \
-  --debootstrap-options "--variant=minbase --no-merged-usr" \
+  --debootstrap-options "--variant=minbase" \
   -d buster \
   --iso-volume "buster" \
   --archive-areas "main contrib non-free" \
