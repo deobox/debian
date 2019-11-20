@@ -13,8 +13,8 @@ lb config \
   --bootloaders "syslinux" \
   --zsync false \
   --debootstrap-options "--variant=minbase" \
-  -d bullseye \
-  --iso-volume "bullseye" \
+  -d sid \
+  --iso-volume "sid" \
   --archive-areas "main contrib non-free" \
   --firmware-binary false \
   --firmware-chroot false \
