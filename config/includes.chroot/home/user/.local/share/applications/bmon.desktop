@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=bmon
+Comment=Bandwidth monitor
+Comment[en]=Bandbreiten-Monitor
+Exec=bmon
+Terminal=true
+Type=Application
+Categories=Network;
+Keywords=bandwidth;monitor;rate;
+Name[C]=Bmon

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+if [ -d "/home/user" ] ; then chown -R 1000.1000 /home/user; fi

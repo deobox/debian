@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=My PC
+Name[en_GB]=My PC
+GenericName[en_GB]=My PC
+Comment[en_GB]=My PC
+TryExec=lxterminal
+Exec=/usr/bin/pcmanfm
+Icon=lxterminal
+Type=Application
