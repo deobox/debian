@@ -250,11 +250,6 @@ python-ldb
 python-minimal
 python-samba
 readline-common
-remmina
-remmina-common
-remmina-plugin-rdp
-remmina-plugin-secret
-remmina-plugin-vnc
 rename
 rsync
 rsyslog
