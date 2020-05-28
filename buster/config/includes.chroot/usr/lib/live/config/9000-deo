@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# set up user permissions
+if [ -d '/home/user' ]; then chown -R 1000.1000 /home/user; fi
+
+# disable console bell
+if [ -f '/etc/inputrc' ]; then sed -i 's/# set bell-style none/set bell-style none/g' /etc/inputrc; fi
