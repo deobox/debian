@@ -208,11 +208,6 @@ patch
 pavucontrol
 pciutils
 pcmanfm
-perl
-perl-base
-perl-openssl-defaults
-policykit-1
-policykit-1-gnome
 ppp
 procps
 psmisc
