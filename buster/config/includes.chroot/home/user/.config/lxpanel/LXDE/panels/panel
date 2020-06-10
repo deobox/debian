@@ -120,8 +120,8 @@ Plugin {
   type=xkb
   Config {
     Model=pc105
-    LayoutsList=gb,bg
-    VariantsList=,phonetic
+    LayoutsList=gb,us
+    VariantsList=,
     ToggleOpt=grp:alt_shift_toggle
     KeepSysLayouts=0
     FlagSize=1
