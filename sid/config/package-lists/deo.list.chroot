@@ -3,6 +3,8 @@ adwaita-icon-theme
 alsa-firmware-loaders
 apparmor
 apparmor-utils
+apparmor-profiles
+apparmor-profiles-extra
 apt
 apt-utils
 bash
@@ -14,7 +16,6 @@ bsdutils
 busybox
 bzip2
 ca-certificates
-chntpw
 chromium
 chromium-common
 chromium-sandbox
@@ -25,12 +26,9 @@ coreutils
 crda
 cron
 curl
-dash
 dconf-gsettings-backend
 dconf-service
 debconf
-debconf-i18n
-debian-archive-keyring
 debianutils
 desktop-base
 desktop-file-utils
@@ -113,8 +111,6 @@ htop
 iftop
 ifupdown
 init
-initramfs-tools
-initramfs-tools-core
 init-system-helpers
 intel-media-va-driver
 intel-microcode
@@ -122,8 +118,6 @@ iotop
 iproute2
 iptables
 iptraf-ng
-isc-dhcp-common
-iucode-tool
 iw
 kbd
 keyboard-configuration
@@ -209,13 +203,10 @@ patch
 pavucontrol
 pciutils
 pcmanfm
-ppp
 procps
 psmisc
-publicsuffix
 pulseaudio
 pulseaudio-utils
-python-minimal
 readline-common
 rename
 rsync
@@ -229,7 +220,6 @@ scrot
 sed
 sensible-utils
 shared-mime-info
-smartmontools
 smbc
 smbnetfs
 sshfs
@@ -290,7 +280,6 @@ xfsprogs
 xinit
 xkb-data
 xorg
-xorg-docs-core
 xserver-common
 xserver-xorg
 xserver-xorg-core
@@ -319,5 +308,3 @@ xtrlock
 xxd
 xz-utils
 zip
-zlib1g
-zlib1g-dev
