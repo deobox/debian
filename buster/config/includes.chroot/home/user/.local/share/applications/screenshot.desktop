@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=ScreenShot
-Exec=/usr/bin/scrot
-Terminal=false
-Categories=Utility;
-Icon=applets-screenshooter-symbolic
-Name[C]=ScreenShot
