@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=VNC
+Exec=/usr/bin/xtightvncviewer
+Terminal=false
+Categories=Network;
+Icon=nm-device-wired-secure
+Name[C]=VNC

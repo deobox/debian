@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for dist in buster sid ; do
+for dist in stable sid ; do
   pushd $dist
   lb clean
   ./config.sh
