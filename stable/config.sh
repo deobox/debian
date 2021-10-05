@@ -13,7 +13,8 @@ lb config \
   --bootloader "syslinux" \
   --debootstrap-options "--variant=minbase" \
   -d bullseye \
-  --iso-volume "bullseye" \
+  --iso-volume "deobian" \
   --archive-areas "main contrib non-free" \
   --firmware-binary false \
-  --firmware-chroot false
+  --firmware-chroot false \
+  --security false
