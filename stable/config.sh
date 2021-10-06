@@ -16,5 +16,4 @@ lb config \
   --iso-volume "deobian" \
   --archive-areas "main contrib non-free" \
   --firmware-binary false \
-  --firmware-chroot false \
-  --security false
+  --firmware-chroot false 
