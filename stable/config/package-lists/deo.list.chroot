@@ -37,6 +37,12 @@ fdisk
 file
 findutils
 firmware-intel-sound
+firmware-atheros
+firmware-ath9k-htc
+firmware-bnx2
+firmware-brcm80211
+firmware-cavium
+firmware-ipw2x00
 firmware-intelwimax
 firmware-iwlwifi
 firmware-linux

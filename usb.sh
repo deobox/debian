@@ -6,7 +6,7 @@ if [ $# -lt 1 ] ; then
 fi
 
 if [ ! -e "$1" ] ; then
-  echo "meh $1"
+  echo "$1 is not accepted"
   exit
 fi
 
@@ -71,7 +71,7 @@ mkdir -p build/loader
 
 cat > build/loader/loader.conf << _EOF_
 default       01-live.conf
-timeout       10
+timeout       5 
 console-mode  keep
 editor        yes
 auto-entries  yes
@@ -81,20 +81,20 @@ _EOF_
 mkdir -p build/loader/entries
 
 cat > build/loader/entries/01-live.conf << _EOF_
-title    Live (amd64)
+title    Live
 linux    /live/vmlinuz
 initrd   /live/initrd.img
 options  boot=live components loglevel=3 net.ifnames=0
 _EOF_
 
 cat > build/loader/entries/02-ipxe.conf << _EOF_
-title    Boot from test.net.in (ipxe.efi)
+title    Boot IPXE EFI from test.net.in
 linux    /boot/ipxe.efi
 options  dhcp && chain http://boot.test.net.in
 _EOF_
 
 cat > build/loader/entries/03-snp.conf << _EOF_
-title    Boot from test.net.in (snp.efi)
+title    Boot SNP EFI from test.net.in
 linux    /boot/snp.efi
 options  dhcp && chain http://boot.test.net.in
 _EOF_
