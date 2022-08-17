@@ -12,7 +12,7 @@ fi
 
 DEVICE=$1
 
-apt-get install syslinux-common syslinux gdisk parted
+apt-get install syslinux-common syslinux gdisk parted systemd-boot
 
 mkdir -p build/live
 wget http://boot.test.net.in/live/bullseye/filesystem.squashfs -O build/live/filesystem.squashfs
