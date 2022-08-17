@@ -143,6 +143,7 @@ sensible-utils
 shared-mime-info
 systemd
 systemd-container
+systemd-resolved
 system-tools-backends
 tar
 testdisk
