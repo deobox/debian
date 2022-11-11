@@ -42,7 +42,6 @@ firmware-ath9k-htc
 firmware-bnx2
 firmware-brcm80211
 firmware-cavium
-firmware-intelwimax
 firmware-iwlwifi
 firmware-linux
 firmware-linux-free
