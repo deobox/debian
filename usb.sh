@@ -14,13 +14,9 @@ DEVICE=$1
 
 apt-get install syslinux-common syslinux gdisk parted systemd-boot
 
-mkdir -p build/live
-wget http://boot.test.net.in/live/bullseye/filesystem.squashfs -O build/live/filesystem.squashfs
-wget http://boot.test.net.in/live/bullseye/initrd.img -O build/live/initrd.img
-wget http://boot.test.net.in/live/bullseye/vmlinuz -O build/live/vmlinuz
+rm -rf build
 
 mkdir -p build/boot
-wget http://boot.test.net.in/snp.efi -O build/boot/snp.efi
 wget http://boot.test.net.in/ipxe.efi -O build/boot/ipxe.efi
 wget http://boot.test.net.in/ipxe.lkrn -O build/boot/ipxe.lkrn
 
@@ -30,11 +26,21 @@ cp /usr/lib/syslinux/modules/bios/{libutil,menu}.c32 build/boot/modules/bios
 mkdir -p build/EFI/BOOT
 cp /usr/lib/systemd/boot/efi/systemd-bootx64.efi build/EFI/BOOT/bootx64.efi
 
+mkdir -p build/live/bullseye
+wget http://boot.test.net.in/live/bullseye/filesystem.squashfs -O build/live/bullseye/filesystem.squashfs
+wget http://boot.test.net.in/live/bullseye/initrd.img -O build/live/bullseye/initrd.img
+wget http://boot.test.net.in/live/bullseye/vmlinuz -O build/live/bullseye/vmlinuz
+
+mkdir -p build/live/sid
+wget http://boot.test.net.in/live/sid/filesystem.squashfs -O build/live/sid/filesystem.squashfs
+wget http://boot.test.net.in/live/sid/initrd.img -O build/live/sid/initrd.img
+wget http://boot.test.net.in/live/sid/vmlinuz -O build/live/sid/vmlinuz
+
 cat > build/syslinux.cfg << _EOF_
 PATH /boot/modules/bios
-DEFAULT live
+DEFAULT live-bullseye
 PROMPT 0
-TIMEOUT 600
+TIMEOUT 10
 ONTIMEOUT live
 
 UI menu.c32
@@ -54,12 +60,19 @@ MENU COLOR border 0 #ffffffff #ee000000 std
 MENU COLOR title  0 #ffff3f7f #ee000000 std
 MENU COLOR unsel  0 #ffffffff #ee000000 std
 
-LABEL live
-  MENU LABEL Live (amd64)
+LABEL live-bullseye
+  MENU LABEL ^Live (bullseye)
   MENU default
-  KERNEL /live/vmlinuz
-  INITRD /live/initrd.img
-  APPEND boot=live components loglevel=3 net.ifnames=0
+  KERNEL /live/bullseye/vmlinuz
+  INITRD /live/bullseye/initrd.img
+  APPEND boot=live components loglevel=3 live-media-path=/live/bullseye toram
+
+LABEL live-sid
+  MENU LABEL ^Live (sid)
+  MENU default
+  KERNEL /live/sid/vmlinuz
+  INITRD /live/sid/initrd.img
+  APPEND boot=live components loglevel=3 live-media-path=/live/sid toram
 
 LABEL net
   MENU LABEL Boot from test.net.in
@@ -70,8 +83,8 @@ _EOF_
 mkdir -p build/loader
 
 cat > build/loader/loader.conf << _EOF_
-default       01-live.conf
-timeout       5 
+default       01-live-bullseye.conf
+timeout       10
 console-mode  keep
 editor        yes
 auto-entries  yes
@@ -80,22 +93,23 @@ _EOF_
 
 mkdir -p build/loader/entries
 
-cat > build/loader/entries/01-live.conf << _EOF_
-title    Live
-linux    /live/vmlinuz
-initrd   /live/initrd.img
-options  boot=live components loglevel=3 net.ifnames=0
+cat > build/loader/entries/01-live-bullseye.conf << _EOF_
+title      ^Live (bullseye)
+options    boot=live components loglevel=3 net.ifnames=0 live-media-path=/live/bullseye toram
+linux      /live/bullseye/vmlinuz
+initrd     /live/bullseye/initrd.img
 _EOF_
 
-cat > build/loader/entries/02-ipxe.conf << _EOF_
-title    Boot IPXE EFI from test.net.in
+cat > build/loader/entries/02-live-sid.conf << _EOF_
+title      ^Live (sid)
+options    boot=live components loglevel=3 net.ifnames=0 live-media-path=/live/sid toram
+linux      /live/sid/vmlinuz
+initrd     /live/sid/initrd.img
+_EOF_
+
+cat > build/loader/entries/10-ipxe.conf << _EOF_
+title    Boot from test.net.in (ipxe.efi)
 linux    /boot/ipxe.efi
-options  dhcp && chain http://boot.test.net.in
-_EOF_
-
-cat > build/loader/entries/03-snp.conf << _EOF_
-title    Boot SNP EFI from test.net.in
-linux    /boot/snp.efi
 options  dhcp && chain http://boot.test.net.in
 _EOF_
 
@@ -118,3 +132,4 @@ mount ${DEVICE}1 mount/
 cp -a build/* mount/
 sync
 umount mount/
+

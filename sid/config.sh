@@ -14,7 +14,8 @@ lb config \
   --debootstrap-options "--variant=minbase" \
   -d sid \
   --iso-volume "sid" \
-  --archive-areas "main contrib non-free" \
+  --archive-areas "main contrib non-free non-free-firmware" \
+  --parent-archive-areas "main contrib non-free non-free-firmware" \
   --firmware-binary false \
   --firmware-chroot false \
   --security false
