@@ -42,7 +42,6 @@ firmware-ath9k-htc
 firmware-bnx2
 firmware-brcm80211
 firmware-cavium
-firmware-intelwimax
 firmware-iwlwifi
 firmware-linux
 firmware-linux-free
@@ -143,6 +142,7 @@ sensible-utils
 shared-mime-info
 systemd
 systemd-container
+systemd-resolved
 system-tools-backends
 tar
 testdisk

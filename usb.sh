@@ -26,10 +26,10 @@ cp /usr/lib/syslinux/modules/bios/{libutil,menu}.c32 build/boot/modules/bios
 mkdir -p build/EFI/BOOT
 cp /usr/lib/systemd/boot/efi/systemd-bootx64.efi build/EFI/BOOT/bootx64.efi
 
-mkdir -p build/live/bullseye
-wget http://boot.test.net.in/live/bullseye/filesystem.squashfs -O build/live/bullseye/filesystem.squashfs
-wget http://boot.test.net.in/live/bullseye/initrd.img -O build/live/bullseye/initrd.img
-wget http://boot.test.net.in/live/bullseye/vmlinuz -O build/live/bullseye/vmlinuz
+mkdir -p build/live/stable
+wget http://boot.test.net.in/live/bullseye/filesystem.squashfs -O build/live/stable/filesystem.squashfs
+wget http://boot.test.net.in/live/bullseye/initrd.img -O build/live/stable/initrd.img
+wget http://boot.test.net.in/live/bullseye/vmlinuz -O build/live/stable/vmlinuz
 
 mkdir -p build/live/sid
 wget http://boot.test.net.in/live/sid/filesystem.squashfs -O build/live/sid/filesystem.squashfs
@@ -38,7 +38,7 @@ wget http://boot.test.net.in/live/sid/vmlinuz -O build/live/sid/vmlinuz
 
 cat > build/syslinux.cfg << _EOF_
 PATH /boot/modules/bios
-DEFAULT live-bullseye
+DEFAULT stable 
 PROMPT 0
 TIMEOUT 10
 ONTIMEOUT live
@@ -60,22 +60,22 @@ MENU COLOR border 0 #ffffffff #ee000000 std
 MENU COLOR title  0 #ffff3f7f #ee000000 std
 MENU COLOR unsel  0 #ffffffff #ee000000 std
 
-LABEL live-bullseye
-  MENU LABEL ^Live (bullseye)
+LABEL stable 
+  MENU LABEL Stable
   MENU default
-  KERNEL /live/bullseye/vmlinuz
-  INITRD /live/bullseye/initrd.img
-  APPEND boot=live components loglevel=3 live-media-path=/live/bullseye toram
+  KERNEL /live/stable/vmlinuz
+  INITRD /live/stable/initrd.img
+  APPEND boot=live components loglevel=3 live-media-path=/live/stable toram
 
-LABEL live-sid
-  MENU LABEL ^Live (sid)
+LABEL sid
+  MENU LABEL Sid
   MENU default
   KERNEL /live/sid/vmlinuz
   INITRD /live/sid/initrd.img
   APPEND boot=live components loglevel=3 live-media-path=/live/sid toram
 
-LABEL net
-  MENU LABEL Boot from test.net.in
+LABEL pxe
+  MENU LABEL iPxe 
   KERNEL /boot/ipxe.lkrn
   APPEND dhcp && chain http://boot.test.net.in
 _EOF_
@@ -83,7 +83,7 @@ _EOF_
 mkdir -p build/loader
 
 cat > build/loader/loader.conf << _EOF_
-default       01-live-bullseye.conf
+default       01-stable.conf
 timeout       10
 console-mode  keep
 editor        yes
@@ -93,29 +93,29 @@ _EOF_
 
 mkdir -p build/loader/entries
 
-cat > build/loader/entries/01-live-bullseye.conf << _EOF_
-title      ^Live (bullseye)
-options    boot=live components loglevel=3 net.ifnames=0 live-media-path=/live/bullseye toram
-linux      /live/bullseye/vmlinuz
-initrd     /live/bullseye/initrd.img
+cat > build/loader/entries/01-stable.conf << _EOF_
+title      Stable 
+options    boot=live components loglevel=3 net.ifnames=0 live-media-path=/live/stable toram
+linux      /live/stable/vmlinuz
+initrd     /live/stable/initrd.img
 _EOF_
 
-cat > build/loader/entries/02-live-sid.conf << _EOF_
-title      ^Live (sid)
+cat > build/loader/entries/02-sid.conf << _EOF_
+title      Sid 
 options    boot=live components loglevel=3 net.ifnames=0 live-media-path=/live/sid toram
 linux      /live/sid/vmlinuz
 initrd     /live/sid/initrd.img
 _EOF_
 
-cat > build/loader/entries/10-ipxe.conf << _EOF_
-title    Boot from test.net.in (ipxe.efi)
+cat > build/loader/entries/03-pxe.conf << _EOF_
+title    iPxe
 linux    /boot/ipxe.efi
 options  dhcp && chain http://boot.test.net.in
 _EOF_
 
 sgdisk -g -o ${DEVICE}
 sgdisk -o ${DEVICE}
-sgdisk -a 1 -n 1:34: -c 1:esp -t 1:ef00 -A 1:set:2 -p ${DEVICE}
+sgdisk -a 1 -n 1:34:1G -c 1:esp -t 1:ef00 -A 1:set:2 -p ${DEVICE}
 partprobe ${DEVICE}
 
 sleep 2

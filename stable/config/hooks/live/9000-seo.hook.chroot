@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 # set root password
-echo root:deobian | chpasswd --md5
+echo root:debian | chpasswd --md5
 
 # systemd tweaks
 if [ -e /etc/systemd/system.conf ] ; then

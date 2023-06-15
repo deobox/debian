@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 lb config \
   --apt apt \
@@ -12,9 +12,10 @@ lb config \
   --bootappend-live-failsafe "boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal" \
   --bootloader "syslinux" \
   --debootstrap-options "--variant=minbase" \
-  -d bullseye \
+  -d bookworm \
   --security true \
-  --iso-volume "deobian" \
-  --archive-areas "main contrib non-free" \
+  --iso-volume "debian" \
+  --archive-areas "main contrib non-free non-free-firmware" \
+  --parent-archive-areas "main contrib non-free non-free-firmware" \
   --firmware-binary false \
   --firmware-chroot false 
