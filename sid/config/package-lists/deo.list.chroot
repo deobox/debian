@@ -25,7 +25,6 @@ desktop-file-utils
 diffutils
 dmidecode
 dmsetup
-dnsutils
 dos2unix
 dosfstools
 dpkg
